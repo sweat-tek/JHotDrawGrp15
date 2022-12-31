@@ -8,6 +8,7 @@
 package org.jhotdraw.samples.svg.figures;
 
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
@@ -15,7 +16,9 @@ import java.awt.image.BufferedImage;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.undo.*;
+
 import org.jhotdraw.draw.*;
+
 import static org.jhotdraw.draw.AttributeKeys.FILL_COLOR;
 import static org.jhotdraw.draw.AttributeKeys.PATH_CLOSED;
 import static org.jhotdraw.draw.AttributeKeys.STROKE_CAP;
@@ -23,6 +26,7 @@ import static org.jhotdraw.draw.AttributeKeys.STROKE_JOIN;
 import static org.jhotdraw.draw.AttributeKeys.STROKE_MITER_LIMIT;
 import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
 import static org.jhotdraw.draw.AttributeKeys.WINDING_RULE;
+
 import org.jhotdraw.draw.AttributeKeys.WindingRule;
 import org.jhotdraw.draw.figure.AbstractAttributedCompositeFigure;
 import org.jhotdraw.draw.figure.Figure;
@@ -33,7 +37,9 @@ import org.jhotdraw.geom.GrowStroke;
 import org.jhotdraw.geom.Shapes;
 import org.jhotdraw.samples.svg.Gradient;
 import org.jhotdraw.samples.svg.SVGAttributeKeys;
+
 import static org.jhotdraw.samples.svg.SVGAttributeKeys.*;
+
 import org.jhotdraw.util.*;
 
 /**
@@ -59,12 +65,13 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
     /**
      * Creates a new instance.
      */
-    @FeatureEntryPoint(value = "SVGPathFigure")
+    @FeatureEntryPoint(value = "LINE_TOOL")
     public SVGPathFigure() {
         add(new SVGBezierFigure());
         SVGAttributeKeys.setDefaults(this);
     }
 
+    @FeatureEntryPoint(value = "LINE_TOOL")
     public SVGPathFigure(boolean isEmpty) {
         if (!isEmpty) {
             add(new SVGBezierFigure());
@@ -73,6 +80,7 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
         setConnectable(false);
     }
 
+    @FeatureEntryPoint(value = "LINE_TOOL")
     @Override
     public void draw(Graphics2D g) {
         double opacity = get(OPACITY);
@@ -107,6 +115,7 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
         }
     }
 
+    @FeatureEntryPoint(value = "LINE_TOOL")
     @Override
     public void drawFigure(Graphics2D g) {
         AffineTransform savedTransform = null;
@@ -226,12 +235,11 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
                 return true;
             }
             double grow = AttributeKeys.getPerpendicularHitGrowth(this, 1.0) /**
-                     * 2d
-                     */
-                    ;
+             * 2d
+             */;
             GrowStroke gs = new GrowStroke(grow,
                     (AttributeKeys.getStrokeTotalWidth(this, 1.0)
-                    * get(STROKE_MITER_LIMIT)));
+                            * get(STROKE_MITER_LIMIT)));
             if (gs.createStrokedShape(getPath()).contains(p)) {
                 return true;
             } else {
@@ -311,10 +319,10 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
             paths.add(getChild(i).getTransformRestoreData());
         }
         return new Object[]{
-            paths,
-            TRANSFORM.getClone(this),
-            FILL_GRADIENT.getClone(this),
-            STROKE_GRADIENT.getClone(this)
+                paths,
+                TRANSFORM.getClone(this),
+                FILL_GRADIENT.getClone(this),
+                STROKE_GRADIENT.getClone(this)
         };
     }
 
@@ -335,6 +343,7 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
         return true;
     }
 
+    @FeatureEntryPoint(value = "LINE_TOOL")
     @Override
     public Collection<Handle> createHandles(int detailLevel) {
         LinkedList<Handle> handles = new LinkedList<Handle>();
@@ -474,6 +483,7 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
 
     // CONNECTING
     // EDITING
+
     /**
      * Handles a mouse click.
      */
