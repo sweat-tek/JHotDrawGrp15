@@ -10,6 +10,8 @@ package org.jhotdraw.samples.svg.figures;
 import java.awt.*;
 import java.awt.geom.*;
 import java.util.*;
+
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.*;
 import static org.jhotdraw.draw.AttributeKeys.FILL_COLOR;
 import static org.jhotdraw.draw.AttributeKeys.STROKE_CAP;
@@ -87,6 +89,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     }
 
     // DRAWING
+    @FeatureEntryPoint(value="rectangleTool")
     @Override
     protected void drawFill(Graphics2D g) {
         if (getArcHeight() == 0d && getArcWidth() == 0d) {
@@ -96,6 +99,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         }
     }
 
+    @FeatureEntryPoint(value="rectangleTool")
     @Override
     protected void drawStroke(Graphics2D g) {
         if (roundrect.archeight == 0 && roundrect.arcwidth == 0) {
@@ -131,18 +135,22 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     }
 
     // SHAPE AND BOUNDS
+    @FeatureEntryPoint(value="rectangleTool")
     public double getX() {
         return roundrect.x;
     }
 
+    @FeatureEntryPoint(value="rectangleTool")
     public double getY() {
         return roundrect.y;
     }
 
+    @FeatureEntryPoint(value="rectangleTool")
     public double getWidth() {
         return roundrect.width;
     }
 
+    @FeatureEntryPoint(value="rectangleTool")
     public double getHeight() {
         return roundrect.height;
     }
@@ -150,6 +158,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     /**
      * Gets the arc width.
      */
+    @FeatureEntryPoint(value="rectangleTool")
     public double getArcWidth() {
         return roundrect.arcwidth;
     }
@@ -157,6 +166,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     /**
      * Gets the arc height.
      */
+    @FeatureEntryPoint(value="rectangleTool")
     public double getArcHeight() {
         return roundrect.archeight;
     }
@@ -164,6 +174,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     /**
      * Sets the arc width.
      */
+    @FeatureEntryPoint(value="rectangleTool")
     public void setArcWidth(double newValue) {
         double oldValue = roundrect.arcwidth;
         roundrect.arcwidth = newValue;
@@ -173,6 +184,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     /**
      * Sets the arc height.
      */
+    @FeatureEntryPoint(value="rectangleTool")
     public void setArcHeight(double newValue) {
         double oldValue = roundrect.archeight;
         roundrect.archeight = newValue;
@@ -182,16 +194,19 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     /**
      * Convenience method for setting both the arc width and the arc height.
      */
+    @FeatureEntryPoint(value="rectangleTool")
     public void setArc(double width, double height) {
         setArcWidth(width);
         setArcHeight(height);
     }
 
+    @FeatureEntryPoint(value="rectangleTool")
     @Override
     public Rectangle2D.Double getBounds() {
         return (Rectangle2D.Double) roundrect.getBounds2D();
     }
 
+    @FeatureEntryPoint(value="rectangleTool")
     @Override
     public Rectangle2D.Double getDrawingArea() {
         Rectangle2D rx = getTransformedShape().getBounds2D();
@@ -217,11 +232,13 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     /**
      * Checks if a Point2D.Double is inside the figure.
      */
+    @FeatureEntryPoint(value="rectangleTool")
     @Override
     public boolean contains(Point2D.Double p) {
         return getHitShape().contains(p);
     }
 
+    @FeatureEntryPoint(value="rectangleTool")
     @Override
     public void setBounds(Point2D.Double anchor, Point2D.Double lead) {
         invalidateTransformedShape();
@@ -232,11 +249,13 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         invalidate();
     }
 
+    @FeatureEntryPoint(value="rectangleTool")
     private void invalidateTransformedShape() {
         cachedTransformedShape = null;
         cachedHitShape = null;
     }
 
+    @FeatureEntryPoint(value="rectangleTool")
     private Shape getTransformedShape() {
         if (cachedTransformedShape == null) {
             if (getArcHeight() == 0 || getArcWidth() == 0) {
@@ -251,6 +270,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         return cachedTransformedShape;
     }
 
+    @FeatureEntryPoint(value="rectangleTool")
     private Shape getHitShape() {
         if (cachedHitShape == null) {
             if (get(FILL_COLOR) != null || get(FILL_GRADIENT) != null) {
@@ -269,6 +289,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
      *
      * @param tx The transformation.
      */
+    @FeatureEntryPoint(value="rectangleTool")
     @Override
     public void transform(AffineTransform tx) {
         invalidateTransformedShape();
@@ -303,6 +324,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         }
     }
 
+    @FeatureEntryPoint(value="rectangleTool")
     @Override
     public void restoreTransformTo(Object geometry) {
         invalidateTransformedShape();
@@ -313,6 +335,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         STROKE_GRADIENT.setClone(this, (Gradient) restoreData[3]);
     }
 
+    @FeatureEntryPoint(value="rectangleTool")
     @Override
     public Object getTransformRestoreData() {
         return new Object[]{
@@ -323,6 +346,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     }
 
     // EDITING
+    @FeatureEntryPoint(value="rectangleTool")
     @Override
     public Collection<Handle> createHandles(int detailLevel) {
         LinkedList<Handle> handles = new LinkedList<Handle>();
@@ -345,6 +369,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     }
 
     // CLONING
+    @FeatureEntryPoint(value="rectangleTool")
     @Override
     public SVGRectFigure clone() {
         SVGRectFigure that = (SVGRectFigure) super.clone();
@@ -354,12 +379,14 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         return that;
     }
 
+    @FeatureEntryPoint(value="rectangleTool")
     @Override
     public boolean isEmpty() {
         Rectangle2D.Double b = getBounds();
         return b.width <= 0 || b.height <= 0;
     }
 
+    @FeatureEntryPoint(value="rectangleTool")
     @Override
     public void invalidate() {
         super.invalidate();
