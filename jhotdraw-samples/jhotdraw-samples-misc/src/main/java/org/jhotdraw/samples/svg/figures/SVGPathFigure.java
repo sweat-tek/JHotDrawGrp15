@@ -8,26 +8,9 @@
 package org.jhotdraw.samples.svg.figures;
 
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
-
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.*;
-import java.awt.image.BufferedImage;
-import java.util.*;
-import javax.swing.*;
-import javax.swing.undo.*;
-
-import org.jhotdraw.draw.*;
-
-import static org.jhotdraw.draw.AttributeKeys.FILL_COLOR;
-import static org.jhotdraw.draw.AttributeKeys.PATH_CLOSED;
-import static org.jhotdraw.draw.AttributeKeys.STROKE_CAP;
-import static org.jhotdraw.draw.AttributeKeys.STROKE_JOIN;
-import static org.jhotdraw.draw.AttributeKeys.STROKE_MITER_LIMIT;
-import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
-import static org.jhotdraw.draw.AttributeKeys.WINDING_RULE;
-
-import org.jhotdraw.draw.AttributeKeys.WindingRule;
+import org.jhotdraw.draw.AttributeKey;
+import org.jhotdraw.draw.AttributeKeys;
+import org.jhotdraw.draw.DrawingView;
 import org.jhotdraw.draw.figure.AbstractAttributedCompositeFigure;
 import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.draw.handle.Handle;
@@ -37,10 +20,24 @@ import org.jhotdraw.geom.GrowStroke;
 import org.jhotdraw.geom.Shapes;
 import org.jhotdraw.samples.svg.Gradient;
 import org.jhotdraw.samples.svg.SVGAttributeKeys;
+import org.jhotdraw.util.ResourceBundleUtil;
 
-import static org.jhotdraw.samples.svg.SVGAttributeKeys.*;
+import javax.swing.*;
+import javax.swing.undo.AbstractUndoableEdit;
+import javax.swing.undo.CannotRedoException;
+import javax.swing.undo.CannotUndoException;
+import javax.swing.undo.UndoableEdit;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.geom.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
 
-import org.jhotdraw.util.*;
+import static org.jhotdraw.draw.AttributeKeys.*;
+import static org.jhotdraw.samples.svg.SVGAttributeKeys.FILL_GRADIENT;
+import static org.jhotdraw.samples.svg.SVGAttributeKeys.STROKE_GRADIENT;
 
 /**
  * SVGPath is a composite Figure which contains one or more SVGBezierFigures as its children.
@@ -83,34 +80,7 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
     @FeatureEntryPoint(value = "LINE_TOOL")
     @Override
     public void draw(Graphics2D g) {
-        double opacity = get(OPACITY);
-        opacity = Math.min(Math.max(0d, opacity), 1d);
-        if (opacity != 0d && opacity != 1d) {
-            Rectangle2D.Double drawingArea = getDrawingArea();
-            Rectangle2D clipBounds = g.getClipBounds();
-            if (clipBounds != null) {
-                Rectangle2D.intersect(drawingArea, clipBounds, drawingArea);
-            }
-            if (!drawingArea.isEmpty()) {
-                BufferedImage buf = new BufferedImage(
-                        Math.max(1, (int) ((2 + drawingArea.width) * g.getTransform().getScaleX())),
-                        Math.max(1, (int) ((2 + drawingArea.height) * g.getTransform().getScaleY())),
-                        BufferedImage.TYPE_INT_ARGB);
-                Graphics2D gr = buf.createGraphics();
-                gr.scale(g.getTransform().getScaleX(), g.getTransform().getScaleY());
-                gr.translate((int) -drawingArea.x, (int) -drawingArea.y);
-                gr.setRenderingHints(g.getRenderingHints());
-                drawFigure(gr);
-                gr.dispose();
-                Composite savedComposite = g.getComposite();
-                g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) opacity));
-                g.drawImage(buf, (int) drawingArea.x, (int) drawingArea.y,
-                        2 + (int) drawingArea.width, 2 + (int) drawingArea.height, null);
-                g.setComposite(savedComposite);
-            }
-        } else {
-            drawFigure(g);
-        }
+        SVGHelper.draw(this,g);
     }
 
     @FeatureEntryPoint(value = "LINE_TOOL")
