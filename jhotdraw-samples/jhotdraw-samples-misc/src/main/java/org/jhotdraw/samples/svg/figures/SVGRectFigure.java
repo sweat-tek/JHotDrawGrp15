@@ -74,14 +74,17 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint(value="rectangleTool")
     public SVGRectFigure() {
         this(0, 0, 0, 0);
     }
 
+    @FeatureEntryPoint(value="rectangleTool")
     public SVGRectFigure(double x, double y, double width, double height) {
         this(x, y, width, height, 0, 0);
     }
 
+    @FeatureEntryPoint(value="rectangleTool")
     public SVGRectFigure(double x, double y, double width, double height, double rx, double ry) {
         roundrect = new RoundRectangle2D.Double(x, y, width, height, rx, ry);
         SVGAttributeKeys.setDefaults(this);
@@ -294,7 +297,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     public void transform(AffineTransform tx) {
         invalidateTransformedShape();
         if (get(TRANSFORM) != null
-                || //              (tx.getType() & (AffineTransform.TYPE_TRANSLATION | AffineTransform.TYPE_MASK_SCALE)) != tx.getType()) {
+                ||
                 (tx.getType() & (AffineTransform.TYPE_TRANSLATION)) != tx.getType()) {
             if (get(TRANSFORM) == null) {
                 set(TRANSFORM, (AffineTransform) tx.clone());
