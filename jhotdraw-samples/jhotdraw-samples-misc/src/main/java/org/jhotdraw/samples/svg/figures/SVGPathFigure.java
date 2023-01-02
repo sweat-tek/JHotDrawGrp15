@@ -473,7 +473,7 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
 
     @Override
     public void add(final int index, final Figure figure) {
-        super.add(index, (SVGBezierFigure) figure);
+        super.add(index, figure);
     }
 
     @Override

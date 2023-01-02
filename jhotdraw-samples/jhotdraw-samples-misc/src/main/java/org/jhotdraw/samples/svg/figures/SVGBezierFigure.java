@@ -7,24 +7,30 @@
  */
 package org.jhotdraw.samples.svg.figures;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
+import org.jhotdraw.draw.AttributeKeys;
+import org.jhotdraw.draw.DrawingView;
 import org.jhotdraw.draw.figure.BezierFigure;
-import java.awt.BasicStroke;
-import java.awt.event.*;
-import java.awt.geom.*;
-import java.util.*;
-import javax.swing.undo.*;
-import org.jhotdraw.draw.*;
-import static org.jhotdraw.draw.AttributeKeys.STROKE_CAP;
-import static org.jhotdraw.draw.AttributeKeys.STROKE_JOIN;
-import static org.jhotdraw.draw.AttributeKeys.STROKE_MITER_LIMIT;
-import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
-import static org.jhotdraw.draw.AttributeKeys.UNCLOSED_PATH_FILLED;
 import org.jhotdraw.draw.handle.BezierNodeHandle;
 import org.jhotdraw.draw.handle.Handle;
 import org.jhotdraw.draw.handle.TransformHandleKit;
 import org.jhotdraw.geom.BezierPath;
 import org.jhotdraw.geom.Geom;
 import org.jhotdraw.util.ResourceBundleUtil;
+
+import javax.swing.undo.AbstractUndoableEdit;
+import javax.swing.undo.CannotRedoException;
+import javax.swing.undo.CannotUndoException;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.NoninvertibleTransformException;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.util.Collection;
+import java.util.LinkedList;
+
+import static org.jhotdraw.draw.AttributeKeys.*;
 
 /**
  * SVGBezierFigure is not an actual SVG element, it is used by SVGPathFigure to
@@ -41,10 +47,12 @@ public class SVGBezierFigure extends BezierFigure {
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint(value = "BEZIER_TOOL")
     public SVGBezierFigure() {
         this(false);
     }
 
+    @FeatureEntryPoint(value = "BEZIER_TOOL")
     public SVGBezierFigure(boolean isClosed) {
         super(isClosed);
         set(UNCLOSED_PATH_FILLED, true);
@@ -67,6 +75,7 @@ public class SVGBezierFigure extends BezierFigure {
         return handles;
     }
 
+    @FeatureEntryPoint(value = "BEZIER_TOOL")
     @Override
     public boolean handleMouseClick(Point2D.Double p, MouseEvent evt, DrawingView view) {
         if (evt.getClickCount() == 2/* && view.getHandleDetailLevel() == 0*/) {
@@ -115,6 +124,7 @@ public class SVGBezierFigure extends BezierFigure {
         return false;
     }
 
+    @FeatureEntryPoint(value = "BEZIER_TOOL")
     @Override
     public void transform(AffineTransform tx) {
         if (get(TRANSFORM) != null
@@ -131,6 +141,7 @@ public class SVGBezierFigure extends BezierFigure {
         }
     }
 
+    @FeatureEntryPoint(value = "BEZIER_TOOL")
     @Override
     public Rectangle2D.Double getDrawingArea() {
         if (cachedDrawingArea == null) {
@@ -159,6 +170,7 @@ public class SVGBezierFigure extends BezierFigure {
      *
      * @return the index of the segment or -1 if no segment was hit.
      */
+    @FeatureEntryPoint(value = "BEZIER_TOOL")
     @Override
     public int findSegment(Point2D.Double find, double tolerance) {
         // Apply inverse of transform to point
@@ -182,6 +194,7 @@ public class SVGBezierFigure extends BezierFigure {
      * @param tolerance a tolerance, tolerance should take into account
      * the line width, plus 2 divided by the zoom factor.
      */
+    @FeatureEntryPoint(value = "BEZIER_TOOL")
     @Override
     public boolean joinSegments(Point2D.Double join, double tolerance) {
         // Apply inverse of transform to point
@@ -209,6 +222,7 @@ public class SVGBezierFigure extends BezierFigure {
      * @param tolerance a tolerance, tolerance should take into account
      * the line width, plus 2 divided by the zoom factor.
      */
+    @FeatureEntryPoint(value = "BEZIER_TOOL")
     @Override
     public int splitSegment(Point2D.Double split, double tolerance) {
         // Apply inverse of transform to point
@@ -230,6 +244,7 @@ public class SVGBezierFigure extends BezierFigure {
      * Transforms all coords of the figure by the current TRANSFORM attribute
      * and then sets the TRANSFORM attribute to null.
      */
+    @FeatureEntryPoint(value = "BEZIER_TOOL")
     public void flattenTransform() {
         if (get(TRANSFORM) != null) {
             path.transform(get(TRANSFORM));

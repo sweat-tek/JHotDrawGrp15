@@ -7,17 +7,23 @@
  */
 package org.jhotdraw.samples.svg.figures;
 
-import org.jhotdraw.draw.figure.GroupFigure;
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
+import org.jhotdraw.draw.AttributeKey;
 import org.jhotdraw.draw.figure.Figure;
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.image.BufferedImage;
-import java.util.*;
-import org.jhotdraw.draw.*;
-import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
+import org.jhotdraw.draw.figure.GroupFigure;
 import org.jhotdraw.draw.handle.Handle;
 import org.jhotdraw.draw.handle.TransformHandleKit;
 import org.jhotdraw.samples.svg.SVGAttributeKeys;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Map;
+
+import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
 import static org.jhotdraw.samples.svg.SVGAttributeKeys.*;
 
 /**
@@ -34,6 +40,7 @@ public class SVGGroupFigure extends GroupFigure implements SVGFigure {
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint(value = "ELLIPSE_TOOL")
     public SVGGroupFigure() {
         SVGAttributeKeys.setDefaults(this);
     }

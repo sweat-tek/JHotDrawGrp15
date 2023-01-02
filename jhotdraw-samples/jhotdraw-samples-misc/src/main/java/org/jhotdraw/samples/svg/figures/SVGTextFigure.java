@@ -7,22 +7,10 @@
  */
 package org.jhotdraw.samples.svg.figures;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
+import org.jhotdraw.draw.AttributeKey;
 import org.jhotdraw.draw.figure.TextHolderFigure;
-import java.awt.*;
-import java.awt.font.*;
-import java.awt.geom.*;
-import java.util.*;
-import org.jhotdraw.draw.*;
-import static org.jhotdraw.draw.AttributeKeys.FILL_COLOR;
-import static org.jhotdraw.draw.AttributeKeys.FONT_SIZE;
-import static org.jhotdraw.draw.AttributeKeys.FONT_UNDERLINE;
-import static org.jhotdraw.draw.AttributeKeys.TEXT;
-import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
-import org.jhotdraw.draw.handle.BoundsOutlineHandle;
-import org.jhotdraw.draw.handle.FontSizeHandle;
-import org.jhotdraw.draw.handle.Handle;
-import org.jhotdraw.draw.handle.MoveHandle;
-import org.jhotdraw.draw.handle.TransformHandleKit;
+import org.jhotdraw.draw.handle.*;
 import org.jhotdraw.draw.locator.RelativeLocator;
 import org.jhotdraw.draw.tool.TextEditingTool;
 import org.jhotdraw.draw.tool.Tool;
@@ -31,6 +19,20 @@ import org.jhotdraw.geom.Geom;
 import org.jhotdraw.geom.Insets2D;
 import org.jhotdraw.samples.svg.Gradient;
 import org.jhotdraw.samples.svg.SVGAttributeKeys;
+
+import java.awt.*;
+import java.awt.font.FontRenderContext;
+import java.awt.font.TextAttribute;
+import java.awt.font.TextLayout;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.NoninvertibleTransformException;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
+
+import static org.jhotdraw.draw.AttributeKeys.*;
 import static org.jhotdraw.samples.svg.SVGAttributeKeys.*;
 
 /**
@@ -63,10 +65,12 @@ public class SVGTextFigure
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint(value = "TEXT_TOOL")
     public SVGTextFigure() {
         this("Text");
     }
 
+    @FeatureEntryPoint(value = "TEXT_TOOL")
     public SVGTextFigure(String text) {
         setText(text);
         SVGAttributeKeys.setDefaults(this);

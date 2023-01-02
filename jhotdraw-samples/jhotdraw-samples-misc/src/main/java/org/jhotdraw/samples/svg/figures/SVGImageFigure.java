@@ -7,26 +7,31 @@
  */
 package org.jhotdraw.samples.svg.figures;
 
-import org.jhotdraw.draw.figure.ImageHolderFigure;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.*;
-import java.awt.image.*;
-import java.io.*;
-import java.util.*;
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import org.jhotdraw.draw.*;
-import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.event.TransformRestoreEdit;
+import org.jhotdraw.draw.figure.ImageHolderFigure;
 import org.jhotdraw.draw.handle.BoundsOutlineHandle;
 import org.jhotdraw.draw.handle.Handle;
 import org.jhotdraw.draw.handle.ResizeHandleKit;
 import org.jhotdraw.draw.handle.TransformHandleKit;
 import org.jhotdraw.geom.GrowStroke;
 import org.jhotdraw.samples.svg.SVGAttributeKeys;
-import static org.jhotdraw.samples.svg.SVGAttributeKeys.*;
-import org.jhotdraw.util.*;
+import org.jhotdraw.util.ResourceBundleUtil;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.util.Collection;
+import java.util.LinkedList;
+
+import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
+import static org.jhotdraw.samples.svg.SVGAttributeKeys.OPACITY;
 
 /**
  * SVGImage.
@@ -63,10 +68,12 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint(value = "IMAGE_TOOL")
     public SVGImageFigure() {
         this(0, 0, 0, 0);
     }
 
+    @FeatureEntryPoint(value = "IMAGE_TOOL")
     public SVGImageFigure(double x, double y, double width, double height) {
         rectangle = new Rectangle2D.Double(x, y, width, height);
         SVGAttributeKeys.setDefaults(this);
