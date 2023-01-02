@@ -87,23 +87,34 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
     @Override
     public void drawFigure(Graphics2D g) {
         AffineTransform savedTransform = null;
-        if (get(TRANSFORM) != null) {
+        AffineTransform transform = get(TRANSFORM);
+        if (transform != null) {
             savedTransform = g.getTransform();
-            g.transform(get(TRANSFORM));
+            g.transform(transform);
         }
+        drawFigureFill(g);
+        drawFigureStroke(g);
+        if (transform != null) {
+            g.setTransform(savedTransform);
+        }
+    }
+
+    private void drawFigureFill(Graphics2D g)
+    {
         Paint paint = SVGAttributeKeys.getFillPaint(this);
         if (paint != null) {
             g.setPaint(paint);
             drawFill(g);
         }
-        paint = SVGAttributeKeys.getStrokePaint(this);
+    }
+
+    private void drawFigureStroke(Graphics2D g)
+    {
+        Paint paint = SVGAttributeKeys.getStrokePaint(this);
         if (paint != null) {
             g.setPaint(paint);
             g.setStroke(SVGAttributeKeys.getStroke(this, AttributeKeys.getScaleFactorFromGraphics(g)));
             drawStroke(g);
-        }
-        if (get(TRANSFORM) != null) {
-            g.setTransform(savedTransform);
         }
     }
 
