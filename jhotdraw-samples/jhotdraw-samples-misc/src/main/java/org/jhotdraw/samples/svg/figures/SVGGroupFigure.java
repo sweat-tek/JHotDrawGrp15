@@ -40,7 +40,7 @@ public class SVGGroupFigure extends GroupFigure implements SVGFigure {
     /**
      * Creates a new instance.
      */
-    @FeatureEntryPoint(value = "ELLIPSE_TOOL")
+    @FeatureEntryPoint(value = "GROUP_TOOL")
     public SVGGroupFigure() {
         SVGAttributeKeys.setDefaults(this);
     }
