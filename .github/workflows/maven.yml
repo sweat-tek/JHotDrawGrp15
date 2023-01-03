@@ -26,7 +26,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build and test with Maven
-        run: mvn -s mvn-settings.xml --batch-mode --update-snapshots verify
+        run: mvn -s settings.xml --batch-mode --update-snapshots verify
         env:
           SECRET_USER_NAME: ${{ secrets.SECRET_USER_NAME }}
           SECRET_USER_TOKEN: ${{ secrets.SECRET_USER_TOKEN }}
