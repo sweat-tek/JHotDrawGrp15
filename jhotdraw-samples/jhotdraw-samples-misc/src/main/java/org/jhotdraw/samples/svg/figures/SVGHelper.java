@@ -30,15 +30,14 @@ public class SVGHelper {
                     Math.max(1, (int) ((2 + drawingArea.width) * g.getTransform().getScaleX())),
                     Math.max(1, (int) ((2 + drawingArea.height) * g.getTransform().getScaleY())),
                     BufferedImage.TYPE_INT_ARGB);
-            Graphics2D gr = createGraphics(g,drawingArea,buf);
+            Graphics2D gr = createGraphics(g, drawingArea, buf);
             compositeFigure.drawFigure(gr);
             gr.dispose();
-            setGraphicsComposite(g,drawingArea,buf,opacity);
+            setGraphicsComposite(g, drawingArea, buf, opacity);
         }
     }
 
-    private static Graphics2D createGraphics(Graphics2D g, Rectangle2D.Double drawingArea, BufferedImage buf)
-    {
+    private static Graphics2D createGraphics(Graphics2D g, Rectangle2D.Double drawingArea, BufferedImage buf) {
         Graphics2D gr = buf.createGraphics();
         gr.scale(g.getTransform().getScaleX(), g.getTransform().getScaleY());
         gr.translate((int) -drawingArea.x, (int) -drawingArea.y);
@@ -46,8 +45,7 @@ public class SVGHelper {
         return gr;
     }
 
-    private static void setGraphicsComposite(Graphics2D g, Rectangle2D.Double drawingArea, BufferedImage buf, double opacity)
-    {
+    private static void setGraphicsComposite(Graphics2D g, Rectangle2D.Double drawingArea, BufferedImage buf, double opacity) {
         Composite savedComposite = g.getComposite();
         g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) opacity));
         g.drawImage(buf, (int) drawingArea.x, (int) drawingArea.y,
