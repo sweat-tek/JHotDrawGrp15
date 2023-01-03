@@ -73,23 +73,21 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     /**
      * Creates a new instance.
      */
-    @FeatureEntryPoint(value = "RECTANGLE_TOOL")
     public SVGRectFigure() {
         this(0, 0, 0, 0);
     }
 
-    @FeatureEntryPoint(value = "RECTANGLE_TOOL")
     public SVGRectFigure(double x, double y, double width, double height) {
         this(x, y, width, height, 0, 0);
     }
 
-    @FeatureEntryPoint(value = "RECTANGLE_TOOL")
     public SVGRectFigure(double x, double y, double width, double height, double rx, double ry) {
         roundrect = new RoundRectangle2D.Double(x, y, width, height, rx, ry);
         SVGAttributeKeys.setDefaults(this);
         setConnectable(false);
     }
 
+    @FeatureEntryPoint(value = "RECTANGLE_TOOL")
     // DRAWING
     @Override
     protected void drawFill(Graphics2D g) {
@@ -100,6 +98,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         }
     }
 
+    @FeatureEntryPoint(value = "RECTANGLE_TOOL")
     @Override
     protected void drawStroke(Graphics2D g) {
         if (roundrect.archeight == 0 && roundrect.arcwidth == 0) {

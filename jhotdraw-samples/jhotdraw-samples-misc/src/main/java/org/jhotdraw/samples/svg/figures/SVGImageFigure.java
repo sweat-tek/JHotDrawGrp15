@@ -68,12 +68,10 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
     /**
      * Creates a new instance.
      */
-    @FeatureEntryPoint(value = "IMAGE_TOOL")
     public SVGImageFigure() {
         this(0, 0, 0, 0);
     }
 
-    @FeatureEntryPoint(value = "IMAGE_TOOL")
     public SVGImageFigure(double x, double y, double width, double height) {
         rectangle = new Rectangle2D.Double(x, y, width, height);
         SVGAttributeKeys.setDefaults(this);
@@ -81,6 +79,7 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
     }
 
     // DRAWING
+    @FeatureEntryPoint(value = "IMAGE_TOOL")
     @Override
     public void draw(Graphics2D g) {
         //super.draw(g);

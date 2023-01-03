@@ -47,12 +47,10 @@ public class SVGBezierFigure extends BezierFigure {
     /**
      * Creates a new instance.
      */
-    @FeatureEntryPoint(value = "BEZIER_TOOL")
     public SVGBezierFigure() {
         this(false);
     }
 
-    @FeatureEntryPoint(value = "BEZIER_TOOL")
     public SVGBezierFigure(boolean isClosed) {
         super(isClosed);
         set(UNCLOSED_PATH_FILLED, true);
@@ -124,7 +122,6 @@ public class SVGBezierFigure extends BezierFigure {
         return false;
     }
 
-    @FeatureEntryPoint(value = "BEZIER_TOOL")
     @Override
     public void transform(AffineTransform tx) {
         if (get(TRANSFORM) != null
@@ -141,7 +138,6 @@ public class SVGBezierFigure extends BezierFigure {
         }
     }
 
-    @FeatureEntryPoint(value = "BEZIER_TOOL")
     @Override
     public Rectangle2D.Double getDrawingArea() {
         if (cachedDrawingArea == null) {
@@ -170,7 +166,6 @@ public class SVGBezierFigure extends BezierFigure {
      *
      * @return the index of the segment or -1 if no segment was hit.
      */
-    @FeatureEntryPoint(value = "BEZIER_TOOL")
     @Override
     public int findSegment(Point2D.Double find, double tolerance) {
         // Apply inverse of transform to point
@@ -194,7 +189,6 @@ public class SVGBezierFigure extends BezierFigure {
      * @param tolerance a tolerance, tolerance should take into account
      * the line width, plus 2 divided by the zoom factor.
      */
-    @FeatureEntryPoint(value = "BEZIER_TOOL")
     @Override
     public boolean joinSegments(Point2D.Double join, double tolerance) {
         // Apply inverse of transform to point
@@ -222,7 +216,6 @@ public class SVGBezierFigure extends BezierFigure {
      * @param tolerance a tolerance, tolerance should take into account
      * the line width, plus 2 divided by the zoom factor.
      */
-    @FeatureEntryPoint(value = "BEZIER_TOOL")
     @Override
     public int splitSegment(Point2D.Double split, double tolerance) {
         // Apply inverse of transform to point
@@ -244,7 +237,6 @@ public class SVGBezierFigure extends BezierFigure {
      * Transforms all coords of the figure by the current TRANSFORM attribute
      * and then sets the TRANSFORM attribute to null.
      */
-    @FeatureEntryPoint(value = "BEZIER_TOOL")
     public void flattenTransform() {
         if (get(TRANSFORM) != null) {
             path.transform(get(TRANSFORM));

@@ -65,12 +65,10 @@ public class SVGTextFigure
     /**
      * Creates a new instance.
      */
-    @FeatureEntryPoint(value = "TEXT_TOOL")
     public SVGTextFigure() {
         this("Text");
     }
 
-    @FeatureEntryPoint(value = "TEXT_TOOL")
     public SVGTextFigure(String text) {
         setText(text);
         SVGAttributeKeys.setDefaults(this);
@@ -78,16 +76,19 @@ public class SVGTextFigure
     }
 
     // DRAWING
+    @FeatureEntryPoint(value = "TEXT_TOOL")
     @Override
     protected void drawText(java.awt.Graphics2D g) {
     }
 
     @Override
+    @FeatureEntryPoint(value = "TEXT_TOOL")
     protected void drawFill(Graphics2D g) {
         g.fill(getTextShape());
     }
 
     @Override
+    @FeatureEntryPoint(value = "TEXT_TOOL")
     protected void drawStroke(Graphics2D g) {
         g.draw(getTextShape());
     }

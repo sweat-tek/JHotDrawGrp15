@@ -40,7 +40,6 @@ public class SVGGroupFigure extends GroupFigure implements SVGFigure {
     /**
      * Creates a new instance.
      */
-    @FeatureEntryPoint(value = "GROUP_TOOL")
     public SVGGroupFigure() {
         SVGAttributeKeys.setDefaults(this);
     }
@@ -74,6 +73,7 @@ public class SVGGroupFigure extends GroupFigure implements SVGFigure {
         }
     }
 
+    @FeatureEntryPoint(value = "GROUP_TOOL")
     @Override
     public void draw(Graphics2D g) {
         double opacity = get(OPACITY);
