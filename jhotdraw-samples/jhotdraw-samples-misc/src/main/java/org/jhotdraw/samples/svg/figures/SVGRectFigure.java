@@ -13,13 +13,6 @@ import java.util.*;
 
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.*;
-
-import static org.jhotdraw.draw.AttributeKeys.FILL_COLOR;
-import static org.jhotdraw.draw.AttributeKeys.STROKE_CAP;
-import static org.jhotdraw.draw.AttributeKeys.STROKE_JOIN;
-import static org.jhotdraw.draw.AttributeKeys.STROKE_MITER_LIMIT;
-import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
-
 import org.jhotdraw.draw.handle.BoundsOutlineHandle;
 import org.jhotdraw.draw.handle.Handle;
 import org.jhotdraw.draw.handle.ResizeHandleKit;
@@ -29,6 +22,11 @@ import org.jhotdraw.geom.GrowStroke;
 import org.jhotdraw.samples.svg.Gradient;
 import org.jhotdraw.samples.svg.SVGAttributeKeys;
 
+import static org.jhotdraw.draw.AttributeKeys.FILL_COLOR;
+import static org.jhotdraw.draw.AttributeKeys.STROKE_CAP;
+import static org.jhotdraw.draw.AttributeKeys.STROKE_JOIN;
+import static org.jhotdraw.draw.AttributeKeys.STROKE_MITER_LIMIT;
+import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
 import static org.jhotdraw.samples.svg.SVGAttributeKeys.*;
 
 /**
@@ -39,7 +37,6 @@ import static org.jhotdraw.samples.svg.SVGAttributeKeys.*;
  */
 public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
 
-    private static final long serialVersionUID = 1L;
     /**
      * Identifies the {@code arcWidth} JavaBeans property.
      */
@@ -113,8 +110,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         if (roundrect.archeight == 0 && roundrect.arcwidth == 0) {
             g.draw(roundrect.getBounds2D());
         } else {
-            Path2D.Double p = generatePathForRoundRect();
-            g.draw(p);
+            g.draw(generatePathForRoundRect());
         }
     }
 
@@ -226,21 +222,29 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         Rectangle2D rx = getTransformedShape().getBounds2D();
         Rectangle2D.Double r = (rx instanceof Rectangle2D.Double) ? (Rectangle2D.Double) rx : new Rectangle2D.Double(rx.getX(), rx.getY(), rx.getWidth(), rx.getHeight());
         if (get(TRANSFORM) == null) {
-            double g = SVGAttributeKeys.getPerpendicularHitGrowth(this, 1.0) * 2d + 1d;
-            Geom.grow(r, g, g);
+            getDrawingAreaIfTransformNull(r);
         } else {
-            double strokeTotalWidth = AttributeKeys.getStrokeTotalWidth(this, 1.0);
-            double width = strokeTotalWidth / 2d;
-            if (get(STROKE_JOIN) == BasicStroke.JOIN_MITER) {
-                width *= get(STROKE_MITER_LIMIT);
-            }
-            if (get(STROKE_CAP) != BasicStroke.CAP_BUTT) {
-                width += strokeTotalWidth * 2;
-            }
-            width++;
-            Geom.grow(r, width, width);
+            getDrawingAreaIfTransformNotNull(r);
         }
         return r;
+    }
+
+    private void getDrawingAreaIfTransformNull(Rectangle2D.Double r) {
+        double g = SVGAttributeKeys.getPerpendicularHitGrowth(this, 1.0) * 2d + 1d;
+        Geom.grow(r, g, g);
+    }
+
+    private void getDrawingAreaIfTransformNotNull(Rectangle2D.Double r) {
+        double strokeTotalWidth = AttributeKeys.getStrokeTotalWidth(this, 1.0);
+        double width = strokeTotalWidth / 2d;
+        if (get(STROKE_JOIN) == BasicStroke.JOIN_MITER) {
+            width *= get(STROKE_MITER_LIMIT);
+        }
+        if (get(STROKE_CAP) != BasicStroke.CAP_BUTT) {
+            width += strokeTotalWidth * 2;
+        }
+        width++;
+        Geom.grow(r, width, width);
     }
 
     /**
@@ -289,10 +293,10 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         if (cachedHitShape == null) {
             if (get(FILL_COLOR) != null || get(FILL_GRADIENT) != null) {
                 cachedHitShape = new GrowStroke(
-                        (float) SVGAttributeKeys.getStrokeTotalWidth(this, 1.0) / 2f,
-                        (float) SVGAttributeKeys.getStrokeTotalMiterLimit(this, 1.0)).createStrokedShape(getTransformedShape());
+                        (float) AttributeKeys.getStrokeTotalWidth(this, 1.0) / 2f,
+                        (float) AttributeKeys.getStrokeTotalMiterLimit(this, 1.0)).createStrokedShape(getTransformedShape());
             } else {
-                cachedHitShape = SVGAttributeKeys.getHitStroke(this, 1.0).createStrokedShape(getTransformedShape());
+                cachedHitShape = AttributeKeys.getHitStroke(this, 1.0).createStrokedShape(getTransformedShape());
             }
         }
         return cachedHitShape;
@@ -307,9 +311,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     @Override
     public void transform(AffineTransform tx) {
         invalidateTransformedShape();
-        if (get(TRANSFORM) != null
-                ||
-                (tx.getType() & (AffineTransform.TYPE_TRANSLATION)) != tx.getType()) {
+        if (get(TRANSFORM) != null || (tx.getType() & (AffineTransform.TYPE_TRANSLATION)) != tx.getType()) {
             if (get(TRANSFORM) == null) {
                 set(TRANSFORM, (AffineTransform) tx.clone());
             } else {
