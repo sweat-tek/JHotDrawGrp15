@@ -7,12 +7,14 @@
  */
 package org.jhotdraw.samples.svg;
 
+import org.jhotdraw.draw.AttributeKey;
+import org.jhotdraw.draw.DrawingView;
 import org.jhotdraw.draw.figure.BezierFigure;
-import java.util.*;
-import org.jhotdraw.draw.*;
 import org.jhotdraw.draw.tool.BezierTool;
 import org.jhotdraw.samples.svg.figures.SVGBezierFigure;
 import org.jhotdraw.samples.svg.figures.SVGPathFigure;
+
+import java.util.Map;
 
 /**
  * Tool to scribble a SVGPath
@@ -31,13 +33,6 @@ public class PathTool extends BezierTool {
      * The path prototype for new figures.
      */
     private SVGPathFigure pathPrototype;
-
-    /**
-     * Creates a new instance.
-     */
-    public PathTool(SVGPathFigure pathPrototype, SVGBezierFigure bezierPrototype) {
-        this(pathPrototype, bezierPrototype, null);
-    }
 
     /**
      * Creates a new instance.
