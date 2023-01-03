@@ -45,7 +45,13 @@
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
+	<dependency>
+   	    <groupId>com.tngtech.jgiven</groupId>
+   	    <artifactId>jgiven-junit</artifactId>
+   	    <version>1.2.4</version>
+   	    <scope>test</scope>
+	</dependency>
+	<dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>RELEASE</version>
@@ -60,8 +66,7 @@
                 <version>2.22.2</version>
                 <configuration>
                     <argLine>
-                        -javaagent:"/Users/bardo/.m2/repository/org/aspectj/aspectjweaver/1.9.9/aspectjweaver-1.9.9.jar"
-                        --add-opens java.base/java.lang=ALL-UNNAMED
+                        -javaagent:/Users/gulac/.m2/repository/org/aspectj/aspectjweaver/1.9.9/aspectjweaver-1.9.9.jar --add-opens java.base/java.lang=ALL-UNNAMED
                     </argLine>
                     <useSystemClassLoader>true</useSystemClassLoader>
                     <forkMode>always</forkMode>

@@ -7,12 +7,17 @@
  */
 package org.jhotdraw.samples.svg.figures;
 
+<<<<<<< HEAD
 import java.awt.*;
 import java.awt.geom.*;
 import java.util.*;
 
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.*;
+=======
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
+import org.jhotdraw.draw.AttributeKeys;
+>>>>>>> develop
 import org.jhotdraw.draw.handle.BoundsOutlineHandle;
 import org.jhotdraw.draw.handle.Handle;
 import org.jhotdraw.draw.handle.ResizeHandleKit;
@@ -22,12 +27,23 @@ import org.jhotdraw.geom.GrowStroke;
 import org.jhotdraw.samples.svg.Gradient;
 import org.jhotdraw.samples.svg.SVGAttributeKeys;
 
+<<<<<<< HEAD
 import static org.jhotdraw.draw.AttributeKeys.FILL_COLOR;
 import static org.jhotdraw.draw.AttributeKeys.STROKE_CAP;
 import static org.jhotdraw.draw.AttributeKeys.STROKE_JOIN;
 import static org.jhotdraw.draw.AttributeKeys.STROKE_MITER_LIMIT;
 import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
 import static org.jhotdraw.samples.svg.SVGAttributeKeys.*;
+=======
+import java.awt.*;
+import java.awt.geom.*;
+import java.util.Collection;
+import java.util.LinkedList;
+
+import static org.jhotdraw.draw.AttributeKeys.*;
+import static org.jhotdraw.samples.svg.SVGAttributeKeys.FILL_GRADIENT;
+import static org.jhotdraw.samples.svg.SVGAttributeKeys.STROKE_GRADIENT;
+>>>>>>> develop
 
 /**
  * SVGRect.
@@ -93,6 +109,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         setConnectable(false);
     }
 
+    @FeatureEntryPoint(value = "RECTANGLE_TOOL")
     // DRAWING
     @FeatureEntryPoint(value = "rectangleTool")
     @Override
@@ -104,7 +121,11 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         }
     }
 
+<<<<<<< HEAD
     @FeatureEntryPoint(value = "rectangleTool")
+=======
+    @FeatureEntryPoint(value = "RECTANGLE_TOOL")
+>>>>>>> develop
     @Override
     protected void drawStroke(Graphics2D g) {
         if (roundrect.archeight == 0 && roundrect.arcwidth == 0) {

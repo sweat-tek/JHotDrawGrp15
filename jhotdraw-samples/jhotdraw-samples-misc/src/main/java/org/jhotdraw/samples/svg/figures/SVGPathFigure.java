@@ -8,6 +8,7 @@
 package org.jhotdraw.samples.svg.figures;
 
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
+<<<<<<< HEAD
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
@@ -24,6 +25,11 @@ import static org.jhotdraw.draw.AttributeKeys.STROKE_MITER_LIMIT;
 import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
 import static org.jhotdraw.draw.AttributeKeys.WINDING_RULE;
 import org.jhotdraw.draw.AttributeKeys.WindingRule;
+=======
+import org.jhotdraw.draw.AttributeKey;
+import org.jhotdraw.draw.AttributeKeys;
+import org.jhotdraw.draw.DrawingView;
+>>>>>>> develop
 import org.jhotdraw.draw.figure.AbstractAttributedCompositeFigure;
 import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.draw.handle.Handle;
@@ -33,8 +39,24 @@ import org.jhotdraw.geom.GrowStroke;
 import org.jhotdraw.geom.Shapes;
 import org.jhotdraw.samples.svg.Gradient;
 import org.jhotdraw.samples.svg.SVGAttributeKeys;
-import static org.jhotdraw.samples.svg.SVGAttributeKeys.*;
-import org.jhotdraw.util.*;
+import org.jhotdraw.util.ResourceBundleUtil;
+
+import javax.swing.*;
+import javax.swing.undo.AbstractUndoableEdit;
+import javax.swing.undo.CannotRedoException;
+import javax.swing.undo.CannotUndoException;
+import javax.swing.undo.UndoableEdit;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.geom.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
+
+import static org.jhotdraw.draw.AttributeKeys.*;
+import static org.jhotdraw.samples.svg.SVGAttributeKeys.FILL_GRADIENT;
+import static org.jhotdraw.samples.svg.SVGAttributeKeys.STROKE_GRADIENT;
 
 /**
  * SVGPath is a composite Figure which contains one or more SVGBezierFigures as its children.
@@ -44,22 +66,23 @@ import org.jhotdraw.util.*;
  */
 public class SVGPathFigure extends AbstractAttributedCompositeFigure implements SVGFigure {
 
-    private static final long serialVersionUID = 1L;
     /**
      * This cached path is used for drawing.
      */
     private transient Path2D.Double cachedPath;
-    // private transient Rectangle2D.Double cachedDrawingArea;
     /**
      * This is used to perform faster hit testing.
      */
     private transient Shape cachedHitShape;
-    private static final boolean DEBUG = false;
 
     /**
      * Creates a new instance.
      */
+<<<<<<< HEAD
     @FeatureEntryPoint(value = "SVGPathFigure")
+=======
+
+>>>>>>> develop
     public SVGPathFigure() {
         add(new SVGBezierFigure());
         SVGAttributeKeys.setDefaults(this);
@@ -73,60 +96,42 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
         setConnectable(false);
     }
 
+    @FeatureEntryPoint(value = "LINE_TOOL")
     @Override
     public void draw(Graphics2D g) {
-        double opacity = get(OPACITY);
-        opacity = Math.min(Math.max(0d, opacity), 1d);
-        if (opacity != 0d) {
-            if (opacity != 1d) {
-                Rectangle2D.Double drawingArea = getDrawingArea();
-                Rectangle2D clipBounds = g.getClipBounds();
-                if (clipBounds != null) {
-                    Rectangle2D.intersect(drawingArea, clipBounds, drawingArea);
-                }
-                if (!drawingArea.isEmpty()) {
-                    BufferedImage buf = new BufferedImage(
-                            Math.max(1, (int) ((2 + drawingArea.width) * g.getTransform().getScaleX())),
-                            Math.max(1, (int) ((2 + drawingArea.height) * g.getTransform().getScaleY())),
-                            BufferedImage.TYPE_INT_ARGB);
-                    Graphics2D gr = buf.createGraphics();
-                    gr.scale(g.getTransform().getScaleX(), g.getTransform().getScaleY());
-                    gr.translate((int) -drawingArea.x, (int) -drawingArea.y);
-                    gr.setRenderingHints(g.getRenderingHints());
-                    drawFigure(gr);
-                    gr.dispose();
-                    Composite savedComposite = g.getComposite();
-                    g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) opacity));
-                    g.drawImage(buf, (int) drawingArea.x, (int) drawingArea.y,
-                            2 + (int) drawingArea.width, 2 + (int) drawingArea.height, null);
-                    g.setComposite(savedComposite);
-                }
-            } else {
-                drawFigure(g);
-            }
-        }
+        SVGHelper.draw(this, g);
     }
 
+    @FeatureEntryPoint(value = "LINE_TOOL")
     @Override
     public void drawFigure(Graphics2D g) {
         AffineTransform savedTransform = null;
-        if (get(TRANSFORM) != null) {
+        AffineTransform transform = get(TRANSFORM);
+        if (transform != null) {
             savedTransform = g.getTransform();
-            g.transform(get(TRANSFORM));
+            g.transform(transform);
         }
+        drawFigureFill(g);
+        drawFigureStroke(g);
+        if (transform != null) {
+            g.setTransform(savedTransform);
+        }
+    }
+
+    private void drawFigureFill(Graphics2D g) {
         Paint paint = SVGAttributeKeys.getFillPaint(this);
         if (paint != null) {
             g.setPaint(paint);
             drawFill(g);
         }
-        paint = SVGAttributeKeys.getStrokePaint(this);
+    }
+
+    private void drawFigureStroke(Graphics2D g) {
+        Paint paint = SVGAttributeKeys.getStrokePaint(this);
         if (paint != null) {
             g.setPaint(paint);
-            g.setStroke(SVGAttributeKeys.getStroke(this, AttributeKeys.getScaleFactorFromGraphics(g)));
+            g.setStroke(AttributeKeys.getStroke(this, AttributeKeys.getScaleFactorFromGraphics(g)));
             drawStroke(g);
-        }
-        if (get(TRANSFORM) != null) {
-            g.setTransform(savedTransform);
         }
     }
 
@@ -156,7 +161,7 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
     protected Path2D.Double getPath() {
         if (cachedPath == null) {
             cachedPath = new Path2D.Double();
-            cachedPath.setWindingRule(get(WINDING_RULE) == WindingRule.EVEN_ODD ? Path2D.Double.WIND_EVEN_ODD : Path2D.Double.WIND_NON_ZERO);
+            cachedPath.setWindingRule(get(WINDING_RULE) == WindingRule.EVEN_ODD ? Path2D.WIND_EVEN_ODD : Path2D.WIND_NON_ZERO);
             for (Figure child : getChildren()) {
                 SVGBezierFigure b = (SVGBezierFigure) child;
                 cachedPath.append(b.getBezierPath(), false);
@@ -169,13 +174,12 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
         if (cachedHitShape == null) {
             cachedHitShape = getPath();
             if (get(FILL_COLOR) == null && get(FILL_GRADIENT) == null) {
-                cachedHitShape = SVGAttributeKeys.getHitStroke(this, 1.0).createStrokedShape(cachedHitShape);
+                cachedHitShape = AttributeKeys.getHitStroke(this, 1.0).createStrokedShape(cachedHitShape);
             }
         }
         return cachedHitShape;
     }
 
-    // int count;
     @Override
     public Rectangle2D.Double getDrawingArea() {
         if (cachedDrawingArea == null) {
@@ -217,21 +221,18 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
         if (isClosed && get(FILL_COLOR) == null && get(FILL_GRADIENT) == null) {
             return getHitShape().contains(p);
         }
-        /*
-         return cachedPath.contains(p2);
-         */
+
         double tolerance = Math.max(2f, AttributeKeys.getStrokeTotalWidth(this, 1.0) / 2d);
         if (isClosed || get(FILL_COLOR) != null || get(FILL_GRADIENT) != null) {
             if (getPath().contains(p)) {
                 return true;
             }
             double grow = AttributeKeys.getPerpendicularHitGrowth(this, 1.0) /**
-                     * 2d
-                     */
-                    ;
+             * 2d
+             */;
             GrowStroke gs = new GrowStroke(grow,
                     (AttributeKeys.getStrokeTotalWidth(this, 1.0)
-                    * get(STROKE_MITER_LIMIT)));
+                            * get(STROKE_MITER_LIMIT)));
             if (gs.createStrokedShape(getPath()).contains(p)) {
                 return true;
             } else {
@@ -240,12 +241,8 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
                 }
             }
         }
-        if (!isClosed) {
-            if (Shapes.outlineContains(getPath(), p, tolerance)) {
-                return true;
-            }
-        }
-        return false;
+
+        return Shapes.outlineContains(getPath(), p, tolerance);
     }
 
     @Override
@@ -306,15 +303,15 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
 
     @Override
     public Object getTransformRestoreData() {
-        ArrayList<Object> paths = new ArrayList<Object>(getChildCount());
+        ArrayList<Object> paths = new ArrayList<>(getChildCount());
         for (int i = 0, n = getChildCount(); i < n; i++) {
             paths.add(getChild(i).getTransformRestoreData());
         }
         return new Object[]{
-            paths,
-            TRANSFORM.getClone(this),
-            FILL_GRADIENT.getClone(this),
-            STROKE_GRADIENT.getClone(this)
+                paths,
+                TRANSFORM.getClone(this),
+                FILL_GRADIENT.getClone(this),
+                STROKE_GRADIENT.getClone(this)
         };
     }
 
@@ -337,7 +334,7 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
 
     @Override
     public Collection<Handle> createHandles(int detailLevel) {
-        LinkedList<Handle> handles = new LinkedList<Handle>();
+        LinkedList<Handle> handles = new LinkedList<>();
         switch (detailLevel % 2) {
             case -1: // Mouse hover handles
                 handles.add(new SVGPathOutlineHandle(this, true));
@@ -361,7 +358,7 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
     @Override
     public Collection<Action> getActions(Point2D.Double p) {
         final ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.samples.svg.Labels");
-        LinkedList<Action> actions = new LinkedList<Action>();
+        LinkedList<Action> actions = new LinkedList<>();
         if (get(TRANSFORM) != null) {
             actions.add(new AbstractAction(labels.getString("edit.removeTransform.text")) {
                 private static final long serialVersionUID = 1L;
@@ -379,8 +376,6 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
 
                 @Override
                 public void actionPerformed(ActionEvent evt) {
-                    // CompositeEdit edit = new CompositeEdit(labels.getString("flattenTransform"));
-                    //TransformEdit edit = new TransformEdit(SVGPathFigure.this, )
                     final Object restoreData = getTransformRestoreData();
                     UndoableEdit edit = new AbstractUndoableEdit() {
                         private static final long serialVersionUID = 1L;
@@ -414,7 +409,7 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
                 }
             });
         }
-        if (getChild(getChildCount() - 1).get(PATH_CLOSED)) {
+        if (Boolean.TRUE.equals(getChild(getChildCount() - 1).get(PATH_CLOSED))) {
             actions.add(new AbstractAction(labels.getString("attribute.openPath.text")) {
                 private static final long serialVersionUID = 1L;
 
@@ -474,9 +469,11 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
 
     // CONNECTING
     // EDITING
+
     /**
      * Handles a mouse click.
      */
+    @FeatureEntryPoint(value = "LINE_TOOL")
     @Override
     public boolean handleMouseClick(Point2D.Double p, MouseEvent evt, DrawingView view) {
         if (evt.getClickCount() == 2 && view.getHandleDetailLevel() % 2 == 0) {
@@ -495,7 +492,7 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
 
     @Override
     public void add(final int index, final Figure figure) {
-        super.add(index, (SVGBezierFigure) figure);
+        super.add(index, figure);
     }
 
     @Override
@@ -505,8 +502,7 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
 
     @Override
     public SVGPathFigure clone() {
-        SVGPathFigure that = (SVGPathFigure) super.clone();
-        return that;
+        return (SVGPathFigure) super.clone();
     }
 
     public void flattenTransform() {
@@ -514,7 +510,6 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
         AffineTransform tx = get(TRANSFORM);
         if (tx != null) {
             for (Figure child : getChildren()) {
-                //((SVGBezierFigure) child).transform(tx);
                 ((SVGBezierFigure) child).flattenTransform();
             }
         }
