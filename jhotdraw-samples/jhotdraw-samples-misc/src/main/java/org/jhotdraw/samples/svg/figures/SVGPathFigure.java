@@ -8,28 +8,9 @@
 package org.jhotdraw.samples.svg.figures;
 
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
-<<<<<<< HEAD
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.*;
-import java.awt.image.BufferedImage;
-import java.util.*;
-import javax.swing.*;
-import javax.swing.undo.*;
-import org.jhotdraw.draw.*;
-import static org.jhotdraw.draw.AttributeKeys.FILL_COLOR;
-import static org.jhotdraw.draw.AttributeKeys.PATH_CLOSED;
-import static org.jhotdraw.draw.AttributeKeys.STROKE_CAP;
-import static org.jhotdraw.draw.AttributeKeys.STROKE_JOIN;
-import static org.jhotdraw.draw.AttributeKeys.STROKE_MITER_LIMIT;
-import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
-import static org.jhotdraw.draw.AttributeKeys.WINDING_RULE;
-import org.jhotdraw.draw.AttributeKeys.WindingRule;
-=======
 import org.jhotdraw.draw.AttributeKey;
 import org.jhotdraw.draw.AttributeKeys;
 import org.jhotdraw.draw.DrawingView;
->>>>>>> develop
 import org.jhotdraw.draw.figure.AbstractAttributedCompositeFigure;
 import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.draw.handle.Handle;
@@ -40,7 +21,6 @@ import org.jhotdraw.geom.Shapes;
 import org.jhotdraw.samples.svg.Gradient;
 import org.jhotdraw.samples.svg.SVGAttributeKeys;
 import org.jhotdraw.util.ResourceBundleUtil;
-
 import javax.swing.*;
 import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.CannotRedoException;
@@ -78,11 +58,6 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
     /**
      * Creates a new instance.
      */
-<<<<<<< HEAD
-    @FeatureEntryPoint(value = "SVGPathFigure")
-=======
-
->>>>>>> develop
     public SVGPathFigure() {
         add(new SVGBezierFigure());
         SVGAttributeKeys.setDefaults(this);
