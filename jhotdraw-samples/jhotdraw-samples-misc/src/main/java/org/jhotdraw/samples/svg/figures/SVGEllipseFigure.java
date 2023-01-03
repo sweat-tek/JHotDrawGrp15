@@ -7,12 +7,8 @@
  */
 package org.jhotdraw.samples.svg.figures;
 
-import java.awt.*;
-import java.awt.geom.*;
-import java.util.*;
-import org.jhotdraw.draw.*;
-import static org.jhotdraw.draw.AttributeKeys.FILL_COLOR;
-import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
+import org.jhotdraw.draw.AttributeKeys;
 import org.jhotdraw.draw.handle.BoundsOutlineHandle;
 import org.jhotdraw.draw.handle.Handle;
 import org.jhotdraw.draw.handle.ResizeHandleKit;
@@ -21,7 +17,19 @@ import org.jhotdraw.geom.Geom;
 import org.jhotdraw.geom.GrowStroke;
 import org.jhotdraw.samples.svg.Gradient;
 import org.jhotdraw.samples.svg.SVGAttributeKeys;
-import static org.jhotdraw.samples.svg.SVGAttributeKeys.*;
+
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.util.Collection;
+import java.util.LinkedList;
+
+import static org.jhotdraw.draw.AttributeKeys.FILL_COLOR;
+import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
+import static org.jhotdraw.samples.svg.SVGAttributeKeys.FILL_GRADIENT;
+import static org.jhotdraw.samples.svg.SVGAttributeKeys.STROKE_GRADIENT;
 
 /**
  * SVGEllipse represents a SVG ellipse and a SVG circle element.
@@ -56,6 +64,7 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
     }
 
     // DRAWING
+    @FeatureEntryPoint(value = "ELLIPSE_TOOL")
     @Override
     protected void drawFill(Graphics2D g) {
         if (ellipse.width > 0 && ellipse.height > 0) {
@@ -63,6 +72,7 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
         }
     }
 
+    @FeatureEntryPoint(value = "ELLIPSE_TOOL")
     @Override
     protected void drawStroke(Graphics2D g) {
         if (ellipse.width > 0 && ellipse.height > 0) {

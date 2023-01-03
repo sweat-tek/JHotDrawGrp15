@@ -19,7 +19,6 @@
 package org.jhotdraw.draw;
 
 import org.jhotdraw.draw.figure.Figure;
-import static com.sun.java.accessibility.util.AWTEventMonitor.addFocusListener;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -62,11 +61,7 @@ import static org.jhotdraw.draw.AttributeKeys.CANVAS_FILL_COLOR;
 import static org.jhotdraw.draw.AttributeKeys.CANVAS_FILL_OPACITY;
 import static org.jhotdraw.draw.AttributeKeys.CANVAS_HEIGHT;
 import static org.jhotdraw.draw.AttributeKeys.CANVAS_WIDTH;
-import static org.jhotdraw.draw.DrawingView.ACTIVE_HANDLE_PROPERTY;
-import static org.jhotdraw.draw.DrawingView.CONSTRAINER_VISIBLE_PROPERTY;
-import static org.jhotdraw.draw.DrawingView.DRAWING_PROPERTY;
-import static org.jhotdraw.draw.DrawingView.INVISIBLE_CONSTRAINER_PROPERTY;
-import static org.jhotdraw.draw.DrawingView.VISIBLE_CONSTRAINER_PROPERTY;
+
 import org.jhotdraw.draw.event.CompositeFigureEvent;
 import org.jhotdraw.draw.event.CompositeFigureListener;
 import org.jhotdraw.draw.event.FigureAdapter;
@@ -302,9 +297,6 @@ public abstract class AbstractDrawingView implements DrawingView, EditableCompon
     }
     private final EventHandler eventHandler = new EventHandler();
 
-    public AbstractDrawingView() {
-        addFocusListener(eventHandler);
-    }
 
     @Override
     public Drawing getDrawing() {

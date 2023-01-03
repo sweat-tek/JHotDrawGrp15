@@ -7,31 +7,34 @@
  */
 package org.jhotdraw.samples.svg.gui;
 
-import org.jhotdraw.gui.action.ButtonFactory;
-import org.jhotdraw.gui.plaf.palette.PaletteFormattedTextFieldUI;
-import org.jhotdraw.gui.plaf.palette.PaletteButtonUI;
-import org.jhotdraw.gui.plaf.palette.PaletteSliderUI;
-import org.jhotdraw.gui.plaf.palette.PaletteColorChooserUI;
-import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.plaf.SliderUI;
-import javax.swing.text.DefaultFormatterFactory;
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.AttributeKey;
 import org.jhotdraw.draw.DrawingEditor;
-import org.jhotdraw.draw.action.*;
 import org.jhotdraw.draw.event.FigureAttributeEditorHandler;
 import org.jhotdraw.draw.event.SelectionComponentDisplayer;
 import org.jhotdraw.draw.event.SelectionComponentRepainter;
 import org.jhotdraw.draw.gui.JAttributeSlider;
 import org.jhotdraw.draw.gui.JAttributeTextField;
-import org.jhotdraw.gui.JPopupButton;
-import static org.jhotdraw.samples.svg.SVGAttributeKeys.*;
-import org.jhotdraw.text.ColorFormatter;
 import org.jhotdraw.formatter.JavaNumberFormatter;
-import org.jhotdraw.util.*;
+import org.jhotdraw.gui.JPopupButton;
+import org.jhotdraw.gui.action.ButtonFactory;
+import org.jhotdraw.gui.plaf.palette.PaletteButtonUI;
+import org.jhotdraw.gui.plaf.palette.PaletteColorChooserUI;
+import org.jhotdraw.gui.plaf.palette.PaletteFormattedTextFieldUI;
+import org.jhotdraw.gui.plaf.palette.PaletteSliderUI;
+import org.jhotdraw.text.ColorFormatter;
+import org.jhotdraw.util.Images;
+import org.jhotdraw.util.ResourceBundleUtil;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.SliderUI;
+import javax.swing.text.DefaultFormatterFactory;
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.jhotdraw.samples.svg.SVGAttributeKeys.*;
 
 /**
  * FillToolBar.
@@ -47,6 +50,7 @@ public class FillToolBar extends AbstractToolBar {
     /**
      * Creates new instance.
      */
+    @FeatureEntryPoint(value = "FILL_TOOL")
     public FillToolBar() {
         ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.samples.svg.Labels");
         setName(labels.getString(getID() + ".toolbar"));
@@ -65,6 +69,7 @@ public class FillToolBar extends AbstractToolBar {
         }
     }
 
+    @FeatureEntryPoint(value = "FILL_TOOL")
     @Override
     protected JComponent createDisclosedComponent(int state) {
         JPanel p = null;

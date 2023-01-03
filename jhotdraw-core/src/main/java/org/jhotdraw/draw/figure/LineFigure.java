@@ -7,15 +7,19 @@
  */
 package org.jhotdraw.draw.figure;
 
-import java.awt.event.*;
-import java.awt.geom.*;
-import java.util.*;
-import javax.swing.undo.*;
 import org.jhotdraw.draw.DrawingView;
 import org.jhotdraw.draw.handle.BezierNodeHandle;
 import org.jhotdraw.draw.handle.BezierOutlineHandle;
 import org.jhotdraw.draw.handle.Handle;
 import org.jhotdraw.geom.BezierPath;
+
+import javax.swing.undo.AbstractUndoableEdit;
+import javax.swing.undo.CannotRedoException;
+import javax.swing.undo.CannotUndoException;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
+import java.util.Collection;
+import java.util.LinkedList;
 
 /**
  * A {@link Figure} which draws a continuous bezier path between two points.
@@ -23,6 +27,7 @@ import org.jhotdraw.geom.BezierPath;
  * @author Werner Randelshofer
  * @version $Id$
  */
+
 public class LineFigure extends BezierFigure {
 
     private static final long serialVersionUID = 1L;
