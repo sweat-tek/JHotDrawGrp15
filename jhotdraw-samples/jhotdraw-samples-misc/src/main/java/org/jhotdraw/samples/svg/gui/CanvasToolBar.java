@@ -56,6 +56,7 @@ public class CanvasToolBar extends AbstractToolBar {
     @Override
     protected JComponent createDisclosedComponent(int state) {
         JPanel p = null;
+        
         switch (state) {
             case 1: 
                 p = new JPanel();
