@@ -78,13 +78,13 @@ public class PaletteColorChooserUI extends ColorChooserUI {
             try {
                 panels.add((AbstractColorChooserPanel) Class.forName(defaultChooserName).newInstance());
             } catch (AccessControlException e) {
-                logger.log(Level.INFO,PALETTEWARNING + defaultChooserName);
+                logger.log(Level.INFO, PALETTEWARNING + defaultChooserName);
                 e.printStackTrace();
             } catch (Exception | UnsupportedClassVersionError e) {
-                logger.log(Level.INFO,PALETTEWARNING + defaultChooserName);
+                logger.log(Level.INFO, PALETTEWARNING + defaultChooserName);
                 e.printStackTrace();
             }  catch (Throwable t) {
-                logger.log(Level.INFO,PALETTEWARNING + defaultChooserName);
+                logger.log(Level.INFO, PALETTEWARNING + defaultChooserName);
             }
         }
         return panels.toArray(new AbstractColorChooserPanel[panels.size()]);

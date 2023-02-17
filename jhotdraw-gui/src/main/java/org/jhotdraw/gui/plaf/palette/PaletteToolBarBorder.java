@@ -7,7 +7,7 @@
  */
 package org.jhotdraw.gui.plaf.palette;
 
-import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
+
 import java.awt.*;
 import java.awt.geom.*;
 import javax.swing.*;
