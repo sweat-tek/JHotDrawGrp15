@@ -97,7 +97,7 @@ public class SelectionOpacityIcon extends javax.swing.ImageIcon {
             fillColor = (fillColorKey == null) ? null : fillColorKey.getDefaultValue();
             strokeColor = (strokeColorKey == null) ? null : strokeColorKey.getDefaultValue();
         }
-        adjustFillProperties(opacity, fillColor, g, x ,y);
+        adjustFillProperties(opacity, fillColor, g, x, y);
         adjustStrokeProperties(opacity, strokeColor, g, x, y);
     }
     private void adjustFillProperties(Double opacity, Color fillColor, Graphics2D g, int x, int  y){

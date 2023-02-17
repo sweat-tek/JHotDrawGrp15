@@ -52,10 +52,10 @@ public class FillToolBar extends AbstractToolBar {
     @FeatureEntryPoint(value = "FILL_TOOL")
     public JComponent createDisclosedComponent(int state) {
         Panel p = new Panel();
-        if(state == 1 ) {
+        if (state == 1) {
             p = new JPanelState1();
         }
-        if(state == 2) {
+        if (state == 2) {
             p = new JPanelState2();
         }
         return p.getPanelState(editor, disposables);
