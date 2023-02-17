@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.gui.plaf.palette;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import java.awt.*;
 import java.awt.geom.*;
 import javax.swing.*;
@@ -39,15 +40,17 @@ public class PaletteToolBarBorder
     private static final Color dark = new Color(0x808080);
     private static final Color bright = new Color(0xcccccc);
      **/
+    
     @Override
     public void paintBorder(Component component, Graphics gr, int x, int y, int w, int h) {
         Graphics2D g = (Graphics2D) gr;
+        System.out.println("testestest");
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         if ((component instanceof JToolBar) && ((((JToolBar) component).getUI()) instanceof PaletteToolBarUI)) {
             JToolBar c = (JToolBar) component;
-            if (c.isFloatable()) {
+            if (c.isFloatable()) { 
                 int hx = x, hy = y, hw = w, hh = h;
                 if (c.getOrientation() == HORIZONTAL) {
                     if (c.getComponentOrientation().isLeftToRight()) {

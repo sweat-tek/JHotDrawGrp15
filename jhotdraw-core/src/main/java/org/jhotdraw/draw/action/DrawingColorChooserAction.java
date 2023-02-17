@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.draw.action;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.Figure;
 import java.awt.*;
 import java.util.*;
@@ -59,6 +60,7 @@ public class DrawingColorChooserAction extends EditorColorChooserAction {
     }
 
     @Override
+    @FeatureEntryPoint(value = "ChangeColor")
     public void actionPerformed(java.awt.event.ActionEvent e) {
         if (colorChooser == null) {
             colorChooser = new JColorChooser();

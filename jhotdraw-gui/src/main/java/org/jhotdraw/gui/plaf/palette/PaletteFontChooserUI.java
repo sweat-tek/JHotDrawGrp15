@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.gui.plaf.palette;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -87,7 +88,6 @@ public class PaletteFontChooserUI extends FontChooserUI {
      * @param c the component where this UI delegate is being installed
      *
      * @see #uninstallUI
-     * @see javax.swing.JComponent#setUI
      * @see javax.swing.JComponent#updateUI
      */
     @Override
@@ -476,6 +476,7 @@ public class PaletteFontChooserUI extends FontChooserUI {
     private class FontChooserHandler implements PropertyChangeListener, TreeModelListener {
 
         @Override
+        @FeatureEntryPoint(value = "FontChooser")
         public void propertyChange(PropertyChangeEvent evt) {
             String name = evt.getPropertyName();
             if ((name == null && JFontChooser.SELECTION_PATH_PROPERTY == null) || (name != null && name.equals(JFontChooser.SELECTION_PATH_PROPERTY))) {

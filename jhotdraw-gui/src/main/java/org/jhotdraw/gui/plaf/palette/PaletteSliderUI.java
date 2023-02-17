@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.gui.plaf.palette;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import java.awt.*;
 import java.awt.geom.*;
 import javax.swing.*;
@@ -106,6 +107,7 @@ public class PaletteSliderUI extends BasicSliderUI {
     }
 
     @Override
+    @FeatureEntryPoint(value = "PaletteSliderUI")
     public void paintThumb(Graphics gr) {
         Graphics2D g = (Graphics2D) gr;
         Rectangle knobBounds = thumbRect;

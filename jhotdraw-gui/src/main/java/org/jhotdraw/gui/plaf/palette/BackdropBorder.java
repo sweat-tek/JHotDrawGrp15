@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.gui.plaf.palette;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Insets;
@@ -37,6 +38,7 @@ public class BackdropBorder implements Border {
     }
 
     @Override
+    @FeatureEntryPoint(value = "Fill pallette")
     public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
         if (foregroundBorder != null) {
             foregroundBorder.paintBorder(c, g, x, y, width, height);

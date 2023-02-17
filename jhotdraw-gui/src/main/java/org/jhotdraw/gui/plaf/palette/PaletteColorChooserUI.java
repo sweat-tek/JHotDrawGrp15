@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.gui.plaf.palette;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.*;
@@ -60,6 +61,7 @@ public class PaletteColorChooserUI extends ColorChooserUI {
         chooser.applyComponentOrientation(c.getComponentOrientation());
     }
 
+    @FeatureEntryPoint(value = "Fill_palette_colorChooser")
     protected AbstractColorChooserPanel[] createDefaultChoosers() {
         String[] defaultChooserNames = (String[]) PaletteLookAndFeel.getInstance().get("ColorChooser.defaultChoosers");
         ArrayList<AbstractColorChooserPanel> panels = new ArrayList<>(defaultChooserNames.length);

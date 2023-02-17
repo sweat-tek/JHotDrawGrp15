@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.svg.gui;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.Figure;
 import java.awt.*;
 import java.net.*;
@@ -54,7 +55,6 @@ public class SelectionOpacityIcon extends javax.swing.ImageIcon {
         this.fillShape = fillShape;
         this.strokeShape = strokeShape;
     }
-
     public SelectionOpacityIcon(
             DrawingEditor editor,
             AttributeKey<Double> opacityKey,
@@ -71,8 +71,9 @@ public class SelectionOpacityIcon extends javax.swing.ImageIcon {
         this.fillShape = fillShape;
         this.strokeShape = strokeShape;
     }
-
+    
     @Override
+    @FeatureEntryPoint(value = "SelectionOpacityIcon")
     public void paintIcon(java.awt.Component c, java.awt.Graphics gr, int x, int y) {
         Graphics2D g = (Graphics2D) gr;
         super.paintIcon(c, g, x, y);
@@ -86,11 +87,13 @@ public class SelectionOpacityIcon extends javax.swing.ImageIcon {
             fillColor = (fillColorKey == null) ? null : f.get(fillColorKey);
             strokeColor = (strokeColorKey == null) ? null : f.get(strokeColorKey);
         } else if (editor != null) {
+            
             opacity = opacityKey.get(editor.getDefaultAttributes());
             fillColor = (fillColorKey == null) ? null : fillColorKey.get(editor.getDefaultAttributes());
             strokeColor = (strokeColorKey == null) ? null : strokeColorKey.get(editor.getDefaultAttributes());
         } else {
             opacity = opacityKey.getDefaultValue();
+         
             fillColor = (fillColorKey == null) ? null : fillColorKey.getDefaultValue();
             strokeColor = (strokeColorKey == null) ? null : strokeColorKey.getDefaultValue();
         }

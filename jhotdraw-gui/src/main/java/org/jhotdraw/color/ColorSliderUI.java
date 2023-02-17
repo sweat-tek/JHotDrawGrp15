@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.color;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.*;
@@ -139,7 +140,7 @@ public class ColorSliderUI extends BasicSliderUI {
             return UIManager.getIcon("Slider.westThumb.small");
         }
     }
-
+    @FeatureEntryPoint(value = "Fill pallette")
     @Override
     public void paintThumb(Graphics g) {
         Rectangle knobBounds = thumbRect;
@@ -151,7 +152,7 @@ public class ColorSliderUI extends BasicSliderUI {
          ((Graphics2D) g).draw(knobBounds);
          */
     }
-
+    @FeatureEntryPoint(value = "Fill pallette")
     @Override
     public void paintTrack(Graphics g) {
         int cx, cy, cw, ch;

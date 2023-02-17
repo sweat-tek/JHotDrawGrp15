@@ -254,6 +254,7 @@ public class DefaultDrawing
     }
 
     @Override
+    @FeatureEntryPoint(value = "Fill_palette_opacity")
     public void drawCanvas(Graphics2D g) {
         if (get(CANVAS_WIDTH) != null && get(CANVAS_HEIGHT) != null) {
             // Determine canvas color and opacity

@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.draw.action;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -52,7 +53,7 @@ public class DrawingColorChooserHandler extends AbstractDrawingViewAction
         }*/
         popupMenu.setVisible(false);
     }
-
+    @FeatureEntryPoint(value = "ApplyColor")
     protected void applySelectedColorToFigures() {
         final Drawing drawing = getView().getDrawing();
         Color selectedColor = colorChooser.getColor();

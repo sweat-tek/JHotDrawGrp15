@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.svg.gui;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import java.awt.*;
 import java.net.*;
 import org.jhotdraw.draw.*;
@@ -38,6 +39,7 @@ public class DrawingOpacityIcon extends javax.swing.ImageIcon {
      * @param fillShape The shape to be drawn with the fillColor of the default
      * attribute.
      */
+    
     public DrawingOpacityIcon(
             DrawingEditor editor,
             AttributeKey<Double> opacityKey,
@@ -54,7 +56,7 @@ public class DrawingOpacityIcon extends javax.swing.ImageIcon {
         this.fillShape = fillShape;
         this.strokeShape = strokeShape;
     }
-
+    
     public DrawingOpacityIcon(
             DrawingEditor editor,
             AttributeKey<Double> opacityKey,
@@ -73,6 +75,7 @@ public class DrawingOpacityIcon extends javax.swing.ImageIcon {
     }
 
     @Override
+    @FeatureEntryPoint(value = "DrawingOpacityIcon")
     public void paintIcon(java.awt.Component c, java.awt.Graphics gr, int x, int y) {
         Graphics2D g = (Graphics2D) gr;
         super.paintIcon(c, g, x, y);

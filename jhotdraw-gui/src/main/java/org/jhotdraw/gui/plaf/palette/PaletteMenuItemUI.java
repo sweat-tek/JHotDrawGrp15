@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.gui.plaf.palette;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import java.awt.*;
 import javax.swing.*;
 
@@ -46,7 +47,7 @@ public class PaletteMenuItemUI extends javax.swing.plaf.basic.BasicMenuItemUI {
         }
         return new Dimension(icon.getIconWidth() + 2, icon.getIconHeight() + 2);
     }
-
+    
     @Override
     public void paint(Graphics g, JComponent c) {
         JMenuItem b = (JMenuItem) c;

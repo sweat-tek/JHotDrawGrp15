@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.svg.gui;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.gui.plaf.palette.PaletteFormattedTextFieldUI;
 import org.jhotdraw.gui.plaf.palette.PaletteButtonUI;
 import org.jhotdraw.gui.plaf.palette.PaletteSliderUI;
@@ -60,6 +61,7 @@ public class FigureToolBar extends AbstractToolBar {
     }
 
     @Override
+    @FeatureEntryPoint(value = "FigureToolBar")
     protected JComponent createDisclosedComponent(int state) {
         JPanel p = null;
         switch (state) {

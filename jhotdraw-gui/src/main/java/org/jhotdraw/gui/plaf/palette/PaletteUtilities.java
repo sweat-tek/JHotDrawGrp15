@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.gui.plaf.palette;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import java.awt.*;
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicGraphicsUtils;
@@ -63,6 +64,7 @@ public class PaletteUtilities extends BasicGraphicsUtils {
      * @param y y coordinate to draw at
      * @since 1.4
      */
+    @FeatureEntryPoint(value = "PaletteUtilities")
     public static void drawStringUnderlineCharAt(JComponent c, Graphics g, String text,
             int underlinedIndex, int x, int y) {
         g.drawString(text, x, y);

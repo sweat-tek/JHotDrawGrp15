@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.gui.plaf.palette;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import java.awt.*;
 import java.awt.geom.Line2D;
 import javax.swing.*;
@@ -77,6 +78,7 @@ public class PaletteFormattedTextFieldUI extends BasicFormattedTextFieldUI {
      * @see #installUI
      */
     @Override
+    @FeatureEntryPoint(value = "PaletteTextFieldUI")
     protected void installDefaults() {
         JTextComponent editor = getComponent();
         PaletteLookAndFeel plaf = PaletteLookAndFeel.getInstance();

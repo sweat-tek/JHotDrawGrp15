@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.gui.plaf.palette;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import java.awt.Graphics;
 import javax.swing.*;
 import javax.swing.plaf.*;
@@ -31,6 +32,7 @@ public class PaletteButtonUI extends BasicButtonUI {
     }
 
     @Override
+    //@FeatureEntryPoint(value = "Fill palette")
     protected void installDefaults(AbstractButton b) {
         super.installDefaults(b);
         // load shared instance defaults
@@ -50,6 +52,7 @@ public class PaletteButtonUI extends BasicButtonUI {
     }
 
     @Override
+    //@FeatureEntryPoint(value = "Fill palette")
     public void paint(Graphics g, JComponent c) {
         AbstractButton button = (AbstractButton) c;
         if (button.isBorderPainted() && (c.getBorder() instanceof BackdropBorder)) {

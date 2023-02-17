@@ -46,13 +46,13 @@ public class FillToolBar extends AbstractToolBar {
 
     private static final long serialVersionUID = 1L;
     private SelectionComponentDisplayer displayer;
-
+    private final String jhotdrawLabels = "org.jhotdraw.samples.svg.Labels";
     /**
      * Creates new instance.
      */
     @FeatureEntryPoint(value = "FILL_TOOL")
     public FillToolBar() {
-        ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.samples.svg.Labels");
+        ResourceBundleUtil labels = ResourceBundleUtil.getBundle(jhotdrawLabels);
         setName(labels.getString(getID() + ".toolbar"));
         setDisclosureStateCount(3);
     }
@@ -69,8 +69,9 @@ public class FillToolBar extends AbstractToolBar {
         }
     }
 
-    @FeatureEntryPoint(value = "FILL_TOOL")
+
     @Override
+    @FeatureEntryPoint(value = "FILL_TOOL")
     protected JComponent createDisclosedComponent(int state) {
         JPanel p = null;
         switch (state) {
@@ -82,7 +83,7 @@ public class FillToolBar extends AbstractToolBar {
                 if (editor == null) {
                     break;
                 }
-                ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.samples.svg.Labels");
+                ResourceBundleUtil labels = ResourceBundleUtil.getBundle(jhotdrawLabels);
                 GridBagLayout layout = new GridBagLayout();
                 p.setLayout(layout);
                 GridBagConstraints gbc;
@@ -143,7 +144,7 @@ public class FillToolBar extends AbstractToolBar {
                 p3.setOpaque(false);
                 p.setBorder(new EmptyBorder(5, 5, 5, 8));
                 p.removeAll();
-                labels = ResourceBundleUtil.getBundle("org.jhotdraw.samples.svg.Labels");
+                labels = ResourceBundleUtil.getBundle(jhotdrawLabels);
                 layout = new GridBagLayout();
                 p.setLayout(layout);
                 // Fill color field and button
@@ -226,6 +227,8 @@ public class FillToolBar extends AbstractToolBar {
                 p.add(p3, gbc);
             
             break;
+            default:
+                break;
         }
         return p;
     }
