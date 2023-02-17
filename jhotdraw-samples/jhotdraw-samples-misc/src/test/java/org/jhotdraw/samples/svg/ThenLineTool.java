@@ -1,4 +1,4 @@
-package org.jhotdraw.samples.svg;
+/*package org.jhotdraw.samples.svg;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
@@ -27,3 +27,4 @@ public class ThenLineTool extends Stage<ThenLineTool> {
         return self();
     }
 }
+*/

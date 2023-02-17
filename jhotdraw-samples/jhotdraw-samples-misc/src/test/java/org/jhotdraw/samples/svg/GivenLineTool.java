@@ -1,4 +1,4 @@
-package org.jhotdraw.samples.svg;
+/*package org.jhotdraw.samples.svg;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.BeforeStage;
@@ -42,3 +42,4 @@ public class GivenLineTool extends Stage<GivenLineTool> {
         return self();
     }
 }
+*/

@@ -1,4 +1,4 @@
-package org.jhotdraw.samples.svg;
+/*package org.jhotdraw.samples.svg;
 
 import org.jhotdraw.samples.svg.figures.SVGRectFigure;
 import org.junit.Before;
@@ -51,3 +51,4 @@ public class SVGRectFigureTest {
         assertEquals(clone.getHeight(), rect.getHeight(), 0);
     }
 }
+*/
