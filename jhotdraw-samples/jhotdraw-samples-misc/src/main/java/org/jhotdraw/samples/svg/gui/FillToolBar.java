@@ -72,35 +72,33 @@ public class FillToolBar extends AbstractToolBar {
 
     @Override
     @FeatureEntryPoint(value = "FILL_TOOL")
-    protected JComponent createDisclosedComponent(int state) {
+    public JComponent createDisclosedComponent(int state) {
         JPanel p = null;
-        switch (state) {
-            case 1:
-                p = new JPanel();
-                p.setOpaque(false);
-                p.setBorder(new EmptyBorder(5, 5, 5, 8));
-                // Abort if no editor is put
-                if (editor == null) {
-                    break;
-                }
-                createDisclosedComponentCase1(p);
-            break;
-            case 2:
-                p = new JPanel();
-                p.setOpaque(false);
-                // Abort if no editor is put
-                if (editor == null) {
-                    break;
-                }
-                createDisclosedComponentCase2(p);
-                break;
-            default:
-                break;
+        if(state == 1 ) {
+            p = new JPanel();
+            p.setOpaque(false);
+            p.setBorder(new EmptyBorder(5, 5, 5, 8));
+            // Abort if no editor is put
+            if (editor == null) {
+                return p;
+            }
+            createDisclosedComponentCase1(p);
+            return p;
+        }
+        if(state == 2) {
+            p = new JPanel();
+            p.setOpaque(false);
+            // Abort if no editor is put
+            if (editor == null) {
+                return p;
+            }
+            createDisclosedComponentCase2(p);
+            return p;
         }
         return p;
     }
 
-    protected void createDisclosedComponentCase1(JPanel p) {
+    public void createDisclosedComponentCase1(JPanel p) {
         ResourceBundleUtil labels = ResourceBundleUtil.getBundle(LABELS);
         GridBagLayout layout = new GridBagLayout();
         p.setLayout(layout);
@@ -139,7 +137,7 @@ public class FillToolBar extends AbstractToolBar {
         opacitySlider.setScaleFactor(100d);
         disposables.add(new FigureAttributeEditorHandler<Double>(FILL_OPACITY, opacitySlider, editor));
     }
-    protected void createDisclosedComponentCase2(JPanel p) {
+    public void createDisclosedComponentCase2(JPanel p) {
         JPanel p1 = new JPanel(new GridBagLayout());
         JPanel p2 = new JPanel(new GridBagLayout());
         JPanel p3 = new JPanel(new GridBagLayout());

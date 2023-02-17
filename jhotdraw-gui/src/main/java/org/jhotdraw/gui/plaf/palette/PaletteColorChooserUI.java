@@ -32,7 +32,7 @@ import org.jhotdraw.gui.plaf.palette.colorchooser.PaletteColorChooserPreviewPane
  */
 public class PaletteColorChooserUI extends ColorChooserUI {
 
-    Logger logger
+    protected Logger logger
             = Logger.getLogger(
             PaletteColorChooserUI.class.getName());
     protected PaletteColorChooserMainPanel mainPanel;
