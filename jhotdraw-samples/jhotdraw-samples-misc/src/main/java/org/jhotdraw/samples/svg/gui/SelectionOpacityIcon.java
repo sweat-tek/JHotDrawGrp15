@@ -97,6 +97,10 @@ public class SelectionOpacityIcon extends javax.swing.ImageIcon {
             fillColor = (fillColorKey == null) ? null : fillColorKey.getDefaultValue();
             strokeColor = (strokeColorKey == null) ? null : strokeColorKey.getDefaultValue();
         }
+        adjustFillProperties(opacity, fillColor, g, x ,y);
+        adjustStrokeProperties(opacity, strokeColor, g, x, y);
+    }
+    private void adjustFillProperties(Double opacity, Color fillColor, Graphics2D g, int x, int  y){
         if (fillColorKey != null && fillShape != null) {
             if (opacity != null) {
                 if (fillColor == null) {
@@ -108,6 +112,8 @@ public class SelectionOpacityIcon extends javax.swing.ImageIcon {
                 g.translate(-x, -y);
             }
         }
+    }
+    private void adjustStrokeProperties(Double opacity, Color strokeColor, Graphics2D g, int x, int  y){
         if (strokeColorKey != null && strokeShape != null) {
             if (opacity != null) {
                 if (strokeColor == null) {
